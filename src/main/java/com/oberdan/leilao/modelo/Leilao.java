@@ -1,7 +1,6 @@
 package com.oberdan.leilao.modelo;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Leilao {
@@ -23,7 +22,7 @@ public class Leilao {
 	}
 
 	public List<Lance> getLances() {
-		return Collections.unmodifiableList(lances);
+		return lances;
 	}
 
 	
