@@ -1,6 +1,8 @@
 package com.oberdan.leilao.servico;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.util.List;
 
@@ -62,15 +64,10 @@ public class AvaliadorTest {
 
 		assertEquals(maiorEsperado, leiloeiro.getMaiorLance());
 		assertEquals(menorEsperado, leiloeiro.getMenorLance());
-	}
-
-	@Test
-	public void testaLeilaoComLanceMedioZero() {
-		Leilao leilao = new Leilao("Produto");
-		leiloeiro.avalia(leilao);
-
-		assertEquals(new Double(0), leiloeiro.getLanceMedio());
-		assertEquals(0, leiloeiro.getMaioresLances().size());
+		
+		//Usando Hamcrest
+		assertThat(leiloeiro.getMaiorLance(), equalTo(400.0));
+		assertThat(leiloeiro.getMenorLance(), equalTo(200.0));
 	}
 
 	@Test
@@ -106,6 +103,25 @@ public class AvaliadorTest {
 		assertEquals(new Double(4000), maiores.get(0).getValor());
 		assertEquals(new Double(3000), maiores.get(1).getValor());
 		assertEquals(new Double(2000), maiores.get(2).getValor());
+		
+		//Usando Hamcrest
+		assertThat(maiores.size(), is(3));
+		
+		assertThat(maiores, hasItems(
+				new Lance(maria, new Double(4000)),
+				new Lance(joao, new Double(3000)),
+				new Lance(maria, new Double(2000))
+		));
+	}
+
+	@Test(expected=RuntimeException.class)
+	public void naoDeveAvaliarLeilaoSemLances() {
+		Leilao leilao = new CriadorDeLeilao()
+				.para("Produto a leiloar")
+				.constroi();
+		
+		leiloeiro.avalia(leilao);
+		
 	}
 
 }

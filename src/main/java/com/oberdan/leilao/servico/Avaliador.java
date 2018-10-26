@@ -17,6 +17,10 @@ public class Avaliador {
 
 	public void avalia(Leilao leilao) {
 		Double total = 0.0;
+		
+		if (leilao.getLances().size() == 0) {
+			throw new RuntimeException("Não é possivel avaliar um leilao sem lances!");
+		}
 
 		for (Lance lance : leilao.getLances()) {
 
@@ -31,6 +35,18 @@ public class Avaliador {
 			}
 		}
 
+		retornaAteTresMaioresLances(leilao);
+		
+		if (total == 0.0) {
+			lanceMedio = 0.0;
+			return;
+		}
+
+		lanceMedio = total / leilao.getLances().size();
+	}
+
+	private void retornaAteTresMaioresLances(Leilao leilao) {
+		
 		maioresLances = new ArrayList<Lance>(leilao.getLances());
 
 		Collections.sort(maioresLances, new Comparator<Lance>() {
@@ -46,12 +62,6 @@ public class Avaliador {
 		
 		maioresLances = maioresLances.subList(0, tamanhoLista);
 
-		if (total == 0.0) {
-			lanceMedio = 0.0;
-			return;
-		}
-
-		lanceMedio = total / leilao.getLances().size();
 
 	}
 
