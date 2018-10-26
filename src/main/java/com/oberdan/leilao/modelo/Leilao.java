@@ -1,15 +1,24 @@
 package com.oberdan.leilao.modelo;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Leilao {
-
+	
+	private Integer id;
 	private String descricao;
+	private Calendar data;
+	private boolean encerrado;
 	private List<Lance> lances;
 
 	public Leilao(String descricao) {
+		this(descricao, Calendar.getInstance());
+	}
+	
+	public Leilao(String descricao, Calendar data) {
 		this.descricao = descricao;
+		this.data = data;
 		this.lances = new ArrayList<Lance>();
 	}
 
@@ -40,13 +49,33 @@ public class Leilao {
 	private Lance ultimoLanceDado() {
 		return lances.get(lances.size() - 1);
 	}
+	
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getDescricao() {
 		return descricao;
 	}
+	
+	public Calendar getData() {
+		return data;
+	}
 
 	public List<Lance> getLances() {
 		return lances;
+	}
+	
+	public void encerra() {
+		this.encerrado = true;
+	}
+	
+	public boolean isEncerrado() {
+		return encerrado;
 	}
 
 	public void dobraLance(Usuario usuario) {

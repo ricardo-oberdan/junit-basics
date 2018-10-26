@@ -1,28 +1,54 @@
 package com.oberdan.leilao.builder;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import com.oberdan.leilao.modelo.Lance;
 import com.oberdan.leilao.modelo.Leilao;
 import com.oberdan.leilao.modelo.Usuario;
 
 public class CriadorDeLeilao {
 	
-	private Leilao leilao;
+	private String produto;
+	private Calendar data;
+	private List<Lance> lances;
+	private boolean encerrado;
 	
-	public CriadorDeLeilao() {	
+	public CriadorDeLeilao() {
+		this.data = Calendar.getInstance();
+		lances = new ArrayList<Lance>();
 	}
 
 	public CriadorDeLeilao para(String produto) {
-		this.leilao = new Leilao(produto);
+		this.produto = produto;
 		return this;
 	}
 
-	public CriadorDeLeilao lance(Usuario usuario, Double valorLance) {
-		leilao.propoe(new Lance(usuario, valorLance));
+	public CriadorDeLeilao naData(Calendar data) {
+		this.data = data;
 		return this;
 	}
+	
+	public CriadorDeLeilao lance(Usuario usuario, Double valorLance) {
+		lances.add(new Lance(usuario, valorLance));
+		return this;
+	}
+
+	public CriadorDeLeilao encerrado() {
+		this.encerrado = true;
+		return this;
+	}	
 
 	public Leilao constroi() {
-		return this.leilao;
+		Leilao leilao = new Leilao(produto, data);
+
+		for(Lance lanceDado : lances) 
+			leilao.propoe(lanceDado);
+
+		if(encerrado) leilao.encerra();
+
+		return leilao;
 	}
 
 }

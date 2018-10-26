@@ -1,7 +1,8 @@
 package com.oberdan.leilao.modelo;
 
 public class Lance {
-
+	
+	private Integer id;	
 	private Usuario usuario;
 	private Double valor;
 	
@@ -12,6 +13,14 @@ public class Lance {
 		
 		this.usuario = usuario;
 		this.valor = valor;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Usuario getUsuario() {
@@ -52,7 +61,10 @@ public class Lance {
 			return false;
 		return true;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Lance [id=" + id + ", usuario=" + usuario + ", valor=" + valor + "]";
+	}
 	
 }

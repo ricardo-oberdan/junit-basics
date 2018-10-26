@@ -1,4 +1,4 @@
-package com.oberdan.leilao.servico;
+package com.oberdan.leilao.dominio;
 
 import static org.junit.Assert.assertEquals;
 
