@@ -13,7 +13,7 @@ public class Avaliador {
 	private Double maiorLance = Double.NEGATIVE_INFINITY;
 	private Double menorLance = Double.POSITIVE_INFINITY;
 	private Double lanceMedio = new Double(0);
-	private List<Lance> tresMaioresLances;
+	private List<Lance> maioresLances;
 
 	public void avalia(Leilao leilao) {
 		Double total = 0.0;
@@ -31,9 +31,9 @@ public class Avaliador {
 			}
 		}
 
-		tresMaioresLances = new ArrayList<Lance>(leilao.getLances());
+		maioresLances = new ArrayList<Lance>(leilao.getLances());
 
-		Collections.sort(tresMaioresLances, new Comparator<Lance>() {
+		Collections.sort(maioresLances, new Comparator<Lance>() {
 
 			public int compare(Lance o1, Lance o2) {
 				if (o1.getValor() < o2.getValor()) return 1;
@@ -42,9 +42,9 @@ public class Avaliador {
 			}
 
 		});
-		int tamanhoLista = tresMaioresLances.size() < 3 ? tresMaioresLances.size() : 3;
+		int tamanhoLista = maioresLances.size() < 3 ? maioresLances.size() : 3;
 		
-		tresMaioresLances = tresMaioresLances.subList(0, tamanhoLista);
+		maioresLances = maioresLances.subList(0, tamanhoLista);
 
 		if (total == 0.0) {
 			lanceMedio = 0.0;
@@ -67,8 +67,8 @@ public class Avaliador {
 		return lanceMedio;
 	}
 	
-	public List<Lance> getTresMaioresLances() {
-		return tresMaioresLances;
+	public List<Lance> getMaioresLances() {
+		return maioresLances;
 	}
 
 }
